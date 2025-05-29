@@ -60,6 +60,12 @@
     input[type="range"] {
       width: 200px;
     }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
   </style>
 </head>
 <body>
@@ -90,6 +96,11 @@
         <option value="900">Black</option>
       </select>
     </label>
+
+    <div class="checkbox-group">
+      <input type="checkbox" id="liga" checked>
+      <label for="liga">Ligaduras</label>
+    </div>
   </div>
 
   <div
@@ -97,7 +108,7 @@
     id="tester"
     contenteditable="true"
     spellcheck="false"
-  >Tradition meets precision.</div>
+  >office file final figure</div>
 
   <script>
     window.addEventListener('DOMContentLoaded', () => {
@@ -105,17 +116,18 @@
       const sizeSlider = document.getElementById('size-slider');
       const weightSlider = document.getElementById('weight-slider');
       const presetWeight = document.getElementById('preset-weight');
+      const liga = document.getElementById('liga');
       const sizeValue = document.getElementById('size-value');
       const weightValue = document.getElementById('weight-value');
 
-      // Cambiar tamaño
+      // Tamaño
       sizeSlider.addEventListener('input', () => {
         const size = sizeSlider.value;
         tester.style.fontSize = `${size}px`;
         sizeValue.textContent = size;
       });
 
-      // Cambiar peso por slider
+      // Peso
       weightSlider.addEventListener('input', () => {
         const weight = weightSlider.value;
         tester.style.fontVariationSettings = `"wght" ${weight}`;
@@ -123,7 +135,7 @@
         presetWeight.value = 0;
       });
 
-      // Cambiar peso por preset
+      // Estilo rápido
       presetWeight.addEventListener('change', () => {
         const weight = presetWeight.value;
         if (weight == 0) return;
@@ -132,15 +144,17 @@
         weightValue.textContent = weight;
       });
 
-      // Limitar a 20 palabras
-      tester.addEventListener('input', () => {
-        const text = tester.innerText.trim().replace(/\s+/g, ' ');
-        const words = text.split(' ');
+      // Ligaduras
+      liga.addEventListener('change', () => {
+        const ligaVal = liga.checked ? 1 : 0;
+        tester.style.fontFeatureSettings = `"liga" ${ligaVal}`;
+      });
 
-        if (words.length > 20) {
-          tester.innerText = words.slice(0, 20).join(' ');
-          placeCaretAtEnd(tester);
-        }
+      // Límite de caracteres y evitar saltos de línea
+      tester.addEventListener('input', () => {
+        let text = tester.innerText.replace(/\n/g, ' ').slice(0, 30);
+        tester.innerText = text;
+        placeCaretAtEnd(tester);
       });
 
       function placeCaretAtEnd(el) {
