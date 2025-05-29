@@ -1,151 +1,183 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="es">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.6">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Type Tester – Oniria</title>
+  <style>
+    @font-face {
+      font-family: 'OniriaVF';
+      src: url('https://juanluort.github.io/oniriaVF/JUANLU-TIPOG.woff2') format('woff2');
+      font-weight: 1 1000;
+    }
+
+    body {
+      font-family: sans-serif;
+      background: #f3f3f3;
+      padding: 2rem;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      align-items: center;
+    }
+
+    .controls label {
+      font-size: 0.9rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .tester {
+      font-family: 'OniriaVF', serif;
+      font-variation-settings: "wght" 400;
+      font-feature-settings: "liga" 1, "onum" 0, "salt" 0;
+      font-size: 48px;
+      line-height: 1.2;
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      border: 1px solid #ccc;
+      transition: all 0.2s ease;
+    }
+
+    input[type="range"], select, input[type="text"], input[type="checkbox"] {
+      font-size: 1rem;
+      padding: 0.4rem 0.6rem;
+    }
+
+    input[type="range"] {
+      width: 200px;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
   </style>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="es"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta charset="UTF-8" /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"/&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;title&gt;Type Tester – Oniria&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>@font-face {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-family: 'OniriaVF';</p>
-<p class="p1"><span class="Apple-converted-space">      </span>src: url('https://juanluort.github.io/oniriaVF/JUANLU-TIPOG.woff2') format('woff2');</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 1 1000;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>body {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-family: sans-serif;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: #f3f3f3;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 2rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.controls {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex-wrap: wrap;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 2rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 2rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.controls label {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 0.9rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex-direction: column;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.tester {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-family: 'OniriaVF', serif;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-variation-settings: "wght" 400;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 48px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.2;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: white;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 1.5rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid #ccc;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>transition: all 0.2s ease;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>input[type="range"], select, input[type="text"] {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 1rem;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 0.4rem 0.6rem;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>input[type="range"] {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>width: 200px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;h1&gt;Oniria Type Tester&lt;/h1&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="controls"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>Texto:</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;input type="text" id="text-input" value="Tradition meets precision."&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/label&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>Tamaño:</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;input type="range" id="size-slider" min="16" max="200" value="48"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;span id="size-value"&gt;48&lt;/span&gt; px</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/label&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>Peso:</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;input type="range" id="weight-slider" min="1" max="1000" value="400"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;span id="weight-value"&gt;400&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/label&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>Estilo rápido:</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;select id="preset-weight"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;option value="0"&gt;Variable&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;option value="300"&gt;Light&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;option value="400" selected&gt;Regular&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;option value="600"&gt;Semibold&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;option value="700"&gt;Bold&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;option value="900"&gt;Black&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/select&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="tester" id="tester"&gt;Tradition meets precision.&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>window.addEventListener('DOMContentLoaded', () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const tester = document.getElementById('tester');</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const textInput = document.getElementById('text-input');</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const sizeSlider = document.getElementById('size-slider');</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const weightSlider = document.getElementById('weight-slider');</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const presetWeight = document.getElementById('preset-weight');</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const sizeValue = document.getElementById('size-value');</p>
-<p class="p1"><span class="Apple-converted-space">      </span>const weightValue = document.getElementById('weight-value');</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>// Cambiar texto</p>
-<p class="p1"><span class="Apple-converted-space">      </span>textInput.addEventListener('input', () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>tester.textContent = textInput.value;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>// Cambiar tamaño</p>
-<p class="p1"><span class="Apple-converted-space">      </span>sizeSlider.addEventListener('input', () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const size = sizeSlider.value;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>tester.style.fontSize = `${size}px`;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>sizeValue.textContent = size;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>// Cambiar peso por slider</p>
-<p class="p1"><span class="Apple-converted-space">      </span>weightSlider.addEventListener('input', () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const weight = weightSlider.value;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>tester.style.fontVariationSettings = `"wght" ${weight}`;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>weightValue.textContent = weight;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>presetWeight.value = 0; // Desactiva el preset si se mueve el slider</p>
-<p class="p1"><span class="Apple-converted-space">      </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>// Cambiar peso por preset</p>
-<p class="p1"><span class="Apple-converted-space">      </span>presetWeight.addEventListener('change', () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const weight = presetWeight.value;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>if (weight == 0) return; // "Variable"</p>
-<p class="p1"><span class="Apple-converted-space">        </span>weightSlider.value = weight;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>tester.style.fontVariationSettings = `"wght" ${weight}`;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>weightValue.textContent = weight;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>});</p>
-<p class="p1"><span class="Apple-converted-space">    </span>});</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/script&gt;</p>
-<p class="p2"><br></p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+
+  <h1>Oniria Type Tester</h1>
+
+  <div class="controls">
+    <label>
+      Texto:
+      <input type="text" id="text-input" value="1234 fines ligatures fine office oldstyle">
+    </label>
+
+    <label>
+      Tamaño:
+      <input type="range" id="size-slider" min="16" max="200" value="48">
+      <span id="size-value">48</span> px
+    </label>
+
+    <label>
+      Interlineado:
+      <input type="range" id="line-slider" min="0.8" max="2" step="0.05" value="1.2">
+      <span id="line-value">1.2</span>
+    </label>
+
+    <label>
+      Peso:
+      <input type="range" id="weight-slider" min="1" max="1000" value="400">
+      <span id="weight-value">400</span>
+    </label>
+
+    <label>
+      Estilo rápido:
+      <select id="preset-weight">
+        <option value="0">Variable</option>
+        <option value="300">Light</option>
+        <option value="400" selected>Regular</option>
+        <option value="600">Semibold</option>
+        <option value="700">Bold</option>
+        <option value="900">Black</option>
+      </select>
+    </label>
+
+    <div class="checkbox-group">
+      <input type="checkbox" id="liga" checked>
+      <label for="liga">Ligaduras</label>
+    </div>
+
+    <div class="checkbox-group">
+      <input type="checkbox" id="onum">
+      <label for="onum">Números antiguos</label>
+    </div>
+
+    <div class="checkbox-group">
+      <input type="checkbox" id="salt">
+      <label for="salt">Alternativas estilísticas</label>
+    </div>
+  </div>
+
+  <div class="tester" id="tester">1234 fines ligatures fine office oldstyle</div>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const tester = document.getElementById('tester');
+      const textInput = document.getElementById('text-input');
+      const sizeSlider = document.getElementById('size-slider');
+      const weightSlider = document.getElementById('weight-slider');
+      const lineSlider = document.getElementById('line-slider');
+      const presetWeight = document.getElementById('preset-weight');
+      const liga = document.getElementById('liga');
+      const onum = document.getElementById('onum');
+      const salt = document.getElementById('salt');
+      const sizeValue = document.getElementById('size-value');
+      const weightValue = document.getElementById('weight-value');
+      const lineValue = document.getElementById('line-value');
+
+      function updateFeatures() {
+        const ligaVal = liga.checked ? 1 : 0;
+        const onumVal = onum.checked ? 1 : 0;
+        const saltVal = salt.checked ? 1 : 0;
+        tester.style.fontFeatureSettings = `"liga" ${ligaVal}, "onum" ${onumVal}, "salt" ${saltVal}`;
+      }
+
+      textInput.addEventListener('input', () => {
+        tester.textContent = textInput.value;
+      });
+
+      sizeSlider.addEventListener('input', () => {
+        const size = sizeSlider.value;
+        tester.style.fontSize = `${size}px`;
+        sizeValue.textContent = size;
+      });
+
+      lineSlider.addEventListener('input', () => {
+        const line = lineSlider.value;
+        tester.style.lineHeight = line;
+        lineValue.textContent = line;
+      });
+
+      weightSlider.addEventListener('input', () => {
+        const weight = weightSlider.value;
+        tester.style.fontVariationSettings = `"wght" ${weight}`;
+        weightValue.textContent = weight;
+        presetWeight.value = 0;
+      });
+
+      presetWeight.addEventListener('change', () => {
+        const weight = presetWeight.value;
+        if (weight == 0) return;
+        weightSlider.value = weight;
+        tester.style.fontVariationSettings = `"wght" ${weight}`;
+        weightValue.textContent = weight;
+      });
+
+      liga.addEventListener('change', updateFeatures);
+      onum.addEventListener('change', updateFeatures);
+      salt.addEventListener('change', updateFeatures);
+
+      updateFeatures(); // Inicializa
+    });
+  </script>
+
 </body>
 </html>
