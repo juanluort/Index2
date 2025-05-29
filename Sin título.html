@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Type Tester – Oniria</title>
+  <title>Oniria Type Tester</title>
   <style>
     @font-face {
       font-family: 'OniriaVF';
@@ -34,7 +34,7 @@
     .tester {
       font-family: 'OniriaVF', serif;
       font-variation-settings: "wght" 400;
-      font-feature-settings: "liga" 1, "onum" 0, "salt" 0;
+      font-feature-settings: "liga" 1;
       font-size: 48px;
       line-height: 1.2;
       background: white;
@@ -42,21 +42,23 @@
       border-radius: 12px;
       border: 1px solid #ccc;
       transition: all 0.2s ease;
+      min-height: 3rem;
+      outline: none;
+      overflow: hidden;
+      white-space: nowrap;
     }
 
-    input[type="range"], select, input[type="text"], input[type="checkbox"] {
+    .tester:focus {
+      box-shadow: 0 0 0 3px #ddd;
+    }
+
+    input[type="range"], select {
       font-size: 1rem;
       padding: 0.4rem 0.6rem;
     }
 
     input[type="range"] {
       width: 200px;
-    }
-
-    .checkbox-group {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
     }
   </style>
 </head>
@@ -66,20 +68,9 @@
 
   <div class="controls">
     <label>
-      Texto:
-      <input type="text" id="text-input" value="1234 fines ligatures fine office oldstyle">
-    </label>
-
-    <label>
       Tamaño:
       <input type="range" id="size-slider" min="16" max="200" value="48">
       <span id="size-value">48</span> px
-    </label>
-
-    <label>
-      Interlineado:
-      <input type="range" id="line-slider" min="0.8" max="2" step="0.05" value="1.2">
-      <span id="line-value">1.2</span>
     </label>
 
     <label>
@@ -99,63 +90,32 @@
         <option value="900">Black</option>
       </select>
     </label>
-
-    <div class="checkbox-group">
-      <input type="checkbox" id="liga" checked>
-      <label for="liga">Ligaduras</label>
-    </div>
-
-    <div class="checkbox-group">
-      <input type="checkbox" id="onum">
-      <label for="onum">Números antiguos</label>
-    </div>
-
-    <div class="checkbox-group">
-      <input type="checkbox" id="salt">
-      <label for="salt">Alternativas estilísticas</label>
-    </div>
   </div>
 
-  <div class="tester" id="tester">1234 fines ligatures fine office oldstyle</div>
+  <div
+    class="tester"
+    id="tester"
+    contenteditable="true"
+    spellcheck="false"
+  >Tradition meets precision.</div>
 
   <script>
     window.addEventListener('DOMContentLoaded', () => {
       const tester = document.getElementById('tester');
-      const textInput = document.getElementById('text-input');
       const sizeSlider = document.getElementById('size-slider');
       const weightSlider = document.getElementById('weight-slider');
-      const lineSlider = document.getElementById('line-slider');
       const presetWeight = document.getElementById('preset-weight');
-      const liga = document.getElementById('liga');
-      const onum = document.getElementById('onum');
-      const salt = document.getElementById('salt');
       const sizeValue = document.getElementById('size-value');
       const weightValue = document.getElementById('weight-value');
-      const lineValue = document.getElementById('line-value');
 
-      function updateFeatures() {
-        const ligaVal = liga.checked ? 1 : 0;
-        const onumVal = onum.checked ? 1 : 0;
-        const saltVal = salt.checked ? 1 : 0;
-        tester.style.fontFeatureSettings = `"liga" ${ligaVal}, "onum" ${onumVal}, "salt" ${saltVal}`;
-      }
-
-      textInput.addEventListener('input', () => {
-        tester.textContent = textInput.value;
-      });
-
+      // Cambiar tamaño
       sizeSlider.addEventListener('input', () => {
         const size = sizeSlider.value;
         tester.style.fontSize = `${size}px`;
         sizeValue.textContent = size;
       });
 
-      lineSlider.addEventListener('input', () => {
-        const line = lineSlider.value;
-        tester.style.lineHeight = line;
-        lineValue.textContent = line;
-      });
-
+      // Cambiar peso por slider
       weightSlider.addEventListener('input', () => {
         const weight = weightSlider.value;
         tester.style.fontVariationSettings = `"wght" ${weight}`;
@@ -163,6 +123,7 @@
         presetWeight.value = 0;
       });
 
+      // Cambiar peso por preset
       presetWeight.addEventListener('change', () => {
         const weight = presetWeight.value;
         if (weight == 0) return;
@@ -171,11 +132,25 @@
         weightValue.textContent = weight;
       });
 
-      liga.addEventListener('change', updateFeatures);
-      onum.addEventListener('change', updateFeatures);
-      salt.addEventListener('change', updateFeatures);
+      // Limitar a 20 palabras
+      tester.addEventListener('input', () => {
+        const text = tester.innerText.trim().replace(/\s+/g, ' ');
+        const words = text.split(' ');
 
-      updateFeatures(); // Inicializa
+        if (words.length > 20) {
+          tester.innerText = words.slice(0, 20).join(' ');
+          placeCaretAtEnd(tester);
+        }
+      });
+
+      function placeCaretAtEnd(el) {
+        const range = document.createRange();
+        const sel = window.getSelection();
+        range.selectNodeContents(el);
+        range.collapse(false);
+        sel.removeAllRanges();
+        sel.addRange(range);
+      }
     });
   </script>
 
