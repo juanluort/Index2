@@ -8,7 +8,7 @@
     @font-face {
       font-family: 'OniriaVF';
       src: url('https://juanluort.github.io/oniriaVF/JUANLU-TIPOG.woff2') format('woff2');
-      font-weight: 1 1000;
+      font-weight: 100 900;
     }
 
     body {
@@ -81,19 +81,19 @@
 
     <label>
       Peso:
-      <input type="range" id="weight-slider" min="1" max="1000" value="400">
-      <span id="weight-value">400</span>
+      <input type="range" id="weight-slider" min="100" max="900" step="1" value="400">
+      <span id="weight-value">400 – Wake</span>
     </label>
 
     <label>
       Estilo rápido:
       <select id="preset-weight">
         <option value="0">Variable</option>
-        <option value="300">Light</option>
-        <option value="400" selected>Regular</option>
-        <option value="600">Semibold</option>
-        <option value="700">Bold</option>
-        <option value="900">Black</option>
+        <option value="100">Dream</option>
+        <option value="250">Drowse</option>
+        <option value="400" selected>Wake</option>
+        <option value="650">Fadeout</option>
+        <option value="900">Nightmare</option>
       </select>
     </label>
 
@@ -108,7 +108,7 @@
     id="tester"
     contenteditable="true"
     spellcheck="false"
-  >office file final figure</div>
+  >office fire fade out</div>
 
   <script>
     window.addEventListener('DOMContentLoaded', () => {
@@ -120,6 +120,19 @@
       const sizeValue = document.getElementById('size-value');
       const weightValue = document.getElementById('weight-value');
 
+      const weightNames = {
+        100: 'Dream',
+        250: 'Drowse',
+        400: 'Wake',
+        650: 'Fadeout',
+        900: 'Nightmare'
+      };
+
+      function updateWeightDisplay(weight) {
+        const name = weightNames[weight] || 'Variable';
+        weightValue.textContent = `${weight} – ${name}`;
+      }
+
       // Tamaño
       sizeSlider.addEventListener('input', () => {
         const size = sizeSlider.value;
@@ -127,21 +140,21 @@
         sizeValue.textContent = size;
       });
 
-      // Peso
+      // Peso con slider
       weightSlider.addEventListener('input', () => {
-        const weight = weightSlider.value;
+        const weight = parseInt(weightSlider.value, 10);
         tester.style.fontVariationSettings = `"wght" ${weight}`;
-        weightValue.textContent = weight;
+        updateWeightDisplay(weight);
         presetWeight.value = 0;
       });
 
-      // Estilo rápido
+      // Peso con presets
       presetWeight.addEventListener('change', () => {
-        const weight = presetWeight.value;
-        if (weight == 0) return;
-        weightSlider.value = weight;
-        tester.style.fontVariationSettings = `"wght" ${weight}`;
-        weightValue.textContent = weight;
+        const value = parseInt(presetWeight.value, 10);
+        if (value === 0) return;
+        weightSlider.value = value;
+        tester.style.fontVariationSettings = `"wght" ${value}`;
+        updateWeightDisplay(value);
       });
 
       // Ligaduras
@@ -150,7 +163,7 @@
         tester.style.fontFeatureSettings = `"liga" ${ligaVal}`;
       });
 
-      // Límite de caracteres y evitar saltos de línea
+      // Limitar a 30 caracteres sin saltos de línea
       tester.addEventListener('input', () => {
         let text = tester.innerText.replace(/\n/g, ' ').slice(0, 30);
         tester.innerText = text;
@@ -165,6 +178,9 @@
         sel.removeAllRanges();
         sel.addRange(range);
       }
+
+      // Inicializar nombres
+      updateWeightDisplay(weightSlider.value);
     });
   </script>
 
