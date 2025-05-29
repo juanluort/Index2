@@ -26,10 +26,47 @@
       align-items: center;
     }
 
-    .controls label {
-      font-size: 1rem;
+    .control-group {
       display: flex;
       flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .slider-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .slider-label {
+      font-family: 'OniriaVF', serif;
+      font-size: 1.2rem;
+      font-variation-settings: "wght" 400;
+    }
+
+    input[type="range"] {
+      width: 200px;
+      accent-color: black;
+    }
+
+    select {
+      font-family: 'OniriaVF', serif;
+      font-variation-settings: "wght" 400;
+      font-size: 1rem;
+      background: transparent;
+      border: none;
+      outline: none;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      padding: 0.2rem 0;
+      cursor: pointer;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
       font-variation-settings: "wght" 400;
     }
 
@@ -53,48 +90,28 @@
     .tester:focus {
       box-shadow: 0 0 0 3px #ddd;
     }
-
-    input[type="range"] {
-      font-family: 'OniriaVF', serif;
-      font-variation-settings: "wght" 400;
-      font-size: 1rem;
-      width: 200px;
-    }
-
-    select {
-      font-family: 'OniriaVF', serif;
-      font-variation-settings: "wght" 400;
-      font-size: 1rem;
-      background: transparent;
-      border: none;
-      outline: none;
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      padding: 0.2rem 0;
-      cursor: pointer;
-    }
-
-    .checkbox-group {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-variation-settings: "wght" 400;
-    }
   </style>
 </head>
 <body>
 
   <div class="controls">
-    <label>
-      Tamaño:
-      <input type="range" id="size-slider" min="16" max="200" value="48">
-    </label>
+    <div class="control-group">
+      <label for="size-slider">Tamaño:</label>
+      <div class="slider-wrapper">
+        <span class="slider-label" style="font-size: 0.8rem;">A</span>
+        <input type="range" id="size-slider" min="16" max="200" value="48">
+        <span class="slider-label" style="font-size: 1.6rem;">A</span>
+      </div>
+    </div>
 
-    <label>
-      Peso:
-      <input type="range" id="weight-slider" min="100" max="900" step="1" value="400">
-    </label>
+    <div class="control-group">
+      <label for="weight-slider">Peso:</label>
+      <div class="slider-wrapper">
+        <span class="slider-label">w</span>
+        <input type="range" id="weight-slider" min="100" max="900" step="1" value="400">
+        <span class="slider-label">W</span>
+      </div>
+    </div>
 
     <label>
       Estilo rápido:
