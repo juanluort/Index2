@@ -12,7 +12,8 @@
     }
 
     body {
-      font-family: sans-serif;
+      font-family: 'OniriaVF', serif;
+      font-variation-settings: "wght" 400;
       background: #f3f3f3;
       padding: 2rem;
     }
@@ -26,14 +27,10 @@
     }
 
     .controls label {
-      font-size: 0.9rem;
+      font-size: 1rem;
       display: flex;
       flex-direction: column;
-    }
-
-    .value-inline {
-      margin-top: 0.3rem;
-      font-size: 0.9rem;
+      font-variation-settings: "wght" 400;
     }
 
     .tester {
@@ -58,6 +55,8 @@
     }
 
     input[type="range"], select {
+      font-family: 'OniriaVF', serif;
+      font-variation-settings: "wght" 400;
       font-size: 1rem;
       padding: 0.4rem 0.6rem;
     }
@@ -70,6 +69,7 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      font-variation-settings: "wght" 400;
     }
   </style>
 </head>
@@ -79,13 +79,11 @@
     <label>
       Tamaño:
       <input type="range" id="size-slider" min="16" max="200" value="48">
-      <span id="size-value" class="value-inline">48px</span>
     </label>
 
     <label>
       Peso:
       <input type="range" id="weight-slider" min="100" max="900" step="1" value="400">
-      <span id="weight-value" class="value-inline">400</span>
     </label>
 
     <label>
@@ -111,7 +109,7 @@
     id="tester"
     contenteditable="true"
     spellcheck="false"
-  >office fire fade out</div>
+  >Dreams into nightmares</div>
 
   <script>
     window.addEventListener('DOMContentLoaded', () => {
@@ -120,8 +118,6 @@
       const weightSlider = document.getElementById('weight-slider');
       const presetWeight = document.getElementById('preset-weight');
       const liga = document.getElementById('liga');
-      const sizeValue = document.getElementById('size-value');
-      const weightValue = document.getElementById('weight-value');
 
       const weightNames = {
         100: 'Dream',
@@ -131,27 +127,17 @@
         900: 'Nightmare'
       };
 
-      function updateWeightDisplay(weight, fromPreset = false) {
-        if (fromPreset && weightNames[weight]) {
-          weightValue.textContent = `${weight} – ${weightNames[weight]}`;
-        } else {
-          weightValue.textContent = `${weight}`;
-        }
-      }
-
       // Tamaño
       sizeSlider.addEventListener('input', () => {
         const size = sizeSlider.value;
         tester.style.fontSize = `${size}px`;
-        sizeValue.textContent = `${size}px`;
       });
 
       // Peso con slider
       weightSlider.addEventListener('input', () => {
         const weight = parseInt(weightSlider.value, 10);
         tester.style.fontVariationSettings = `"wght" ${weight}`;
-        updateWeightDisplay(weight);
-        presetWeight.value = 0; // Reset selector
+        presetWeight.value = 0;
       });
 
       // Peso con presets
@@ -160,7 +146,6 @@
         if (value === 0) return;
         weightSlider.value = value;
         tester.style.fontVariationSettings = `"wght" ${value}`;
-        updateWeightDisplay(value, true);
       });
 
       // Ligaduras
@@ -184,9 +169,6 @@
         sel.removeAllRanges();
         sel.addRange(range);
       }
-
-      // Inicial
-      updateWeightDisplay(weightSlider.value);
     });
   </script>
 
