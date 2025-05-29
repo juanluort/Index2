@@ -82,16 +82,16 @@
     <label>
       Peso:
       <input type="range" id="weight-slider" min="100" max="900" step="1" value="400">
-      <span id="weight-value">400 – Wake</span>
+      <span id="weight-value">400</span>
     </label>
 
     <label>
       Estilo rápido:
       <select id="preset-weight">
-        <option value="0">Variable</option>
+        <option value="0" selected>Variable</option>
         <option value="100">Dream</option>
         <option value="250">Drowse</option>
-        <option value="400" selected>Wake</option>
+        <option value="400">Wake</option>
         <option value="650">Fadeout</option>
         <option value="900">Nightmare</option>
       </select>
@@ -128,9 +128,12 @@
         900: 'Nightmare'
       };
 
-      function updateWeightDisplay(weight) {
-        const name = weightNames[weight] || 'Variable';
-        weightValue.textContent = `${weight} – ${name}`;
+      function updateWeightDisplay(weight, fromPreset = false) {
+        if (fromPreset && weightNames[weight]) {
+          weightValue.textContent = `${weight} – ${weightNames[weight]}`;
+        } else {
+          weightValue.textContent = `${weight}`;
+        }
       }
 
       // Tamaño
@@ -145,7 +148,7 @@
         const weight = parseInt(weightSlider.value, 10);
         tester.style.fontVariationSettings = `"wght" ${weight}`;
         updateWeightDisplay(weight);
-        presetWeight.value = 0;
+        presetWeight.value = 0; // Reset selector
       });
 
       // Peso con presets
@@ -154,7 +157,7 @@
         if (value === 0) return;
         weightSlider.value = value;
         tester.style.fontVariationSettings = `"wght" ${value}`;
-        updateWeightDisplay(value);
+        updateWeightDisplay(value, true);
       });
 
       // Ligaduras
@@ -179,7 +182,7 @@
         sel.addRange(range);
       }
 
-      // Inicializar nombres
+      // Inicial
       updateWeightDisplay(weightSlider.value);
     });
   </script>
