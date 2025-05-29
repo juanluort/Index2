@@ -54,15 +54,25 @@
       box-shadow: 0 0 0 3px #ddd;
     }
 
-    input[type="range"], select {
+    input[type="range"] {
       font-family: 'OniriaVF', serif;
       font-variation-settings: "wght" 400;
       font-size: 1rem;
-      padding: 0.4rem 0.6rem;
+      width: 200px;
     }
 
-    input[type="range"] {
-      width: 200px;
+    select {
+      font-family: 'OniriaVF', serif;
+      font-variation-settings: "wght" 400;
+      font-size: 1rem;
+      background: transparent;
+      border: none;
+      outline: none;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      padding: 0.2rem 0;
+      cursor: pointer;
     }
 
     .checkbox-group {
@@ -119,14 +129,6 @@
       const presetWeight = document.getElementById('preset-weight');
       const liga = document.getElementById('liga');
 
-      const weightNames = {
-        100: 'Dream',
-        250: 'Drowse',
-        400: 'Wake',
-        650: 'Fadeout',
-        900: 'Nightmare'
-      };
-
       // Tamaño
       sizeSlider.addEventListener('input', () => {
         const size = sizeSlider.value;
@@ -137,7 +139,7 @@
       weightSlider.addEventListener('input', () => {
         const weight = parseInt(weightSlider.value, 10);
         tester.style.fontVariationSettings = `"wght" ${weight}`;
-        presetWeight.value = 0;
+        presetWeight.value = 0; // Reset preset
       });
 
       // Peso con presets
