@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Oniria Type Tester</title>
+  <title>Type Tester</title>
   <style>
     @font-face {
       font-family: 'OniriaVF';
@@ -29,6 +29,11 @@
       font-size: 0.9rem;
       display: flex;
       flex-direction: column;
+    }
+
+    .value-inline {
+      margin-top: 0.3rem;
+      font-size: 0.9rem;
     }
 
     .tester {
@@ -70,19 +75,17 @@
 </head>
 <body>
 
-  <h1>Oniria Type Tester</h1>
-
   <div class="controls">
     <label>
       Tamaño:
       <input type="range" id="size-slider" min="16" max="200" value="48">
-      <span id="size-value">48</span> px
+      <span id="size-value" class="value-inline">48px</span>
     </label>
 
     <label>
       Peso:
       <input type="range" id="weight-slider" min="100" max="900" step="1" value="400">
-      <span id="weight-value">400</span>
+      <span id="weight-value" class="value-inline">400</span>
     </label>
 
     <label>
@@ -140,7 +143,7 @@
       sizeSlider.addEventListener('input', () => {
         const size = sizeSlider.value;
         tester.style.fontSize = `${size}px`;
-        sizeValue.textContent = size;
+        sizeValue.textContent = `${size}px`;
       });
 
       // Peso con slider
