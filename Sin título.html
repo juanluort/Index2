@@ -132,20 +132,22 @@
       border-color: #bbb;
     }
 
-    /* Botón de ligadura reducido */
+    /* Botón de ligadura */
     .ligature-toggle {
       width: 20px;
       height: 20px;
       border-radius: 50%;
       border: 2px solid white;
-      background-color: white;
+      background-color: white;  /* activo */
       cursor: pointer;
       transition: all 0.2s ease;
       flex-shrink: 0;
     }
 
-    .ligature-toggle.inactive {
+    /* Cuando el botón NO tiene la clase active (inactivo) */
+    .ligature-toggle:not(.active) {
       background-color: transparent;
+      border: 2px solid white;
     }
 
     .checkbox-group {
