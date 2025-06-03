@@ -45,6 +45,7 @@
       font-family: 'OniriaVF', serif;
       font-size: 1.2rem;
       color: white;
+      user-select: none;
     }
 
     .slider-wght-left {
@@ -63,9 +64,72 @@
       font-size: 1.6rem;
     }
 
+    /* Estilo sliders coherente con botón ligadura */
     input[type="range"] {
+      -webkit-appearance: none;
       width: 200px;
-      accent-color: white;
+      height: 24px;
+      background: transparent;
+      cursor: pointer;
+      border-radius: 12px;
+      position: relative;
+    }
+
+    /* Track */
+    input[type="range"]::-webkit-slider-runnable-track {
+      height: 8px;
+      background: transparent;
+      border: 2px solid white;
+      border-radius: 12px;
+    }
+    input[type="range"]::-moz-range-track {
+      height: 8px;
+      background: transparent;
+      border: 2px solid white;
+      border-radius: 12px;
+    }
+
+    /* Thumb */
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 24px;
+      height: 24px;
+      background: white;
+      border: 2px solid white;
+      border-radius: 50%;
+      margin-top: -8px; /* centrar con track */
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+      position: relative;
+      z-index: 2;
+    }
+    input[type="range"]:hover::-webkit-slider-thumb {
+      background-color: #ddd;
+      border-color: #ddd;
+    }
+    input[type="range"]:active::-webkit-slider-thumb {
+      background-color: #bbb;
+      border-color: #bbb;
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 24px;
+      height: 24px;
+      background: white;
+      border: 2px solid white;
+      border-radius: 50%;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+      position: relative;
+      z-index: 2;
+      cursor: pointer;
+    }
+    input[type="range"]:hover::-moz-range-thumb {
+      background-color: #ddd;
+      border-color: #ddd;
+    }
+    input[type="range"]:active::-moz-range-thumb {
+      background-color: #bbb;
+      border-color: #bbb;
     }
 
     /* Botón de ligadura personalizado */
@@ -74,20 +138,28 @@
       height: 24px;
       border-radius: 50%;
       border: 2px solid white;
-      background-color: transparent;
+      background-color: white;
       cursor: pointer;
       transition: all 0.2s ease;
+      flex-shrink: 0;
     }
 
-    .ligature-toggle.active {
-      background-color: white;
+    .ligature-toggle.inactive {
+      background-color: transparent;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      user-select: none;
     }
 
     .tester {
       font-family: 'OniriaVF', serif;
       font-variation-settings: "wght" 400;
       font-feature-settings: "liga" 1;
-      font-size: 49px; /* Valor base */
+      font-size: 49px;
       line-height: 1.2;
       background: #000;
       color: #fff;
@@ -112,7 +184,7 @@
     <div class="control-group">
       <div class="slider-wrapper">
         <span class="slider-label slider-size-left">A</span>
-        <input type="range" id="size-slider" min="0" max="100" value="0">
+        <input type="range" id="size-slider" min="49" max="134" value="49">
         <span class="slider-label slider-size-right">A</span>
       </div>
     </div>
@@ -127,6 +199,7 @@
 
     <div class="checkbox-group">
       <button id="ligature-btn" class="ligature-toggle active" aria-label="Toggle Ligatures"></button>
+      <span class="slider-label">Ligaduras</span>
     </div>
   </div>
 
@@ -149,7 +222,7 @@
         const percentage = sizeSlider.value / 100;
         const min = 49;
         const max = 134;
-        const size = min + (max - min) * percentage;
+        const size = sizeSlider.value;
         tester.style.fontSize = `${size}px`;
       });
 
