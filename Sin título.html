@@ -66,15 +66,19 @@
       accent-color: white;
     }
 
-    .checkbox-group {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-variation-settings: "wght" 400;
+    /* Botón de ligadura personalizado */
+    .ligature-toggle {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 2px solid white;
+      background-color: transparent;
+      cursor: pointer;
+      transition: all 0.2s ease;
     }
 
-    .checkbox-group label {
-      font-size: 1rem;
+    .ligature-toggle.active {
+      background-color: white;
     }
 
     .tester {
@@ -120,8 +124,7 @@
     </div>
 
     <div class="checkbox-group">
-      <input type="checkbox" id="liga" checked>
-      <label for="liga">Ligaduras</label>
+      <button id="ligature-btn" class="ligature-toggle active" aria-label="Toggle Ligatures"></button>
     </div>
   </div>
 
@@ -130,14 +133,14 @@
     id="tester"
     contenteditable="true"
     spellcheck="false"
-  >Dreams into nightmares</div>
+  >Test Oniria live</div>
 
   <script>
     window.addEventListener('DOMContentLoaded', () => {
       const tester = document.getElementById('tester');
       const sizeSlider = document.getElementById('size-slider');
       const weightSlider = document.getElementById('weight-slider');
-      const liga = document.getElementById('liga');
+      const ligaBtn = document.getElementById('ligature-btn');
 
       // Tamaño
       sizeSlider.addEventListener('input', () => {
@@ -151,9 +154,10 @@
         tester.style.fontVariationSettings = `"wght" ${weight}`;
       });
 
-      // Ligaduras
-      liga.addEventListener('change', () => {
-        const ligaVal = liga.checked ? 1 : 0;
+      // Botón de ligaduras
+      ligaBtn.addEventListener('click', () => {
+        ligaBtn.classList.toggle('active');
+        const ligaVal = ligaBtn.classList.contains('active') ? 1 : 0;
         tester.style.fontFeatureSettings = `"liga" ${ligaVal}`;
       });
 
