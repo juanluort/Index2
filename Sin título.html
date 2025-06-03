@@ -66,19 +66,24 @@
       accent-color: white;
     }
 
-    /* Botón de ligadura personalizado */
     .ligature-toggle {
       width: 24px;
       height: 24px;
       border-radius: 50%;
       border: 2px solid white;
-      background-color: transparent;
+      background-color: white;
       cursor: pointer;
       transition: all 0.2s ease;
     }
 
-    .ligature-toggle.active {
-      background-color: white;
+    .ligature-toggle.inactive {
+      background-color: transparent;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
     .tester {
@@ -124,7 +129,8 @@
     </div>
 
     <div class="checkbox-group">
-      <button id="ligature-btn" class="ligature-toggle active" aria-label="Toggle Ligatures"></button>
+      <span class="slider-label">Ligaduras</span>
+      <button id="ligature-btn" class="ligature-toggle" aria-label="Toggle Ligatures"></button>
     </div>
   </div>
 
@@ -142,26 +148,29 @@
       const weightSlider = document.getElementById('weight-slider');
       const ligaBtn = document.getElementById('ligature-btn');
 
+      // Inicializar ligaduras
+      ligaBtn.classList.remove('inactive');
+      tester.style.fontFeatureSettings = `"liga" 1`;
+
       // Tamaño
       sizeSlider.addEventListener('input', () => {
         const size = sizeSlider.value;
         tester.style.fontSize = `${size}px`;
       });
 
-      // Peso con slider
+      // Peso
       weightSlider.addEventListener('input', () => {
         const weight = parseInt(weightSlider.value, 10);
         tester.style.fontVariationSettings = `"wght" ${weight}`;
       });
 
-      // Botón de ligaduras
+      // Ligaduras toggle
       ligaBtn.addEventListener('click', () => {
-        ligaBtn.classList.toggle('active');
-        const ligaVal = ligaBtn.classList.contains('active') ? 1 : 0;
-        tester.style.fontFeatureSettings = `"liga" ${ligaVal}`;
+        const active = ligaBtn.classList.toggle('inactive');
+        tester.style.fontFeatureSettings = `"liga" ${active ? 0 : 1}`;
       });
 
-      // Limitar a 30 caracteres sin saltos de línea
+      // Limitar caracteres
       tester.addEventListener('input', () => {
         let text = tester.innerText.replace(/\n/g, ' ').slice(0, 30);
         tester.innerText = text;
