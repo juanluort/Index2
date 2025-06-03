@@ -11,6 +11,10 @@
       font-weight: 100 900;
     }
 
+    :root {
+      --ui-font: ui-monospace, SFMono-Regular, Menlo, Monaco, "Courier New", monospace;
+    }
+
     body {
       font-family: 'OniriaVF', serif;
       font-variation-settings: "wght" 400;
@@ -40,15 +44,17 @@
     }
 
     .slider-label {
-      font-family: 'OniriaVF', serif;
+      font-family: var(--ui-font);
       font-size: 1.2rem;
     }
 
     .slider-wght-left {
+      font-family: 'OniriaVF', serif;
       font-variation-settings: "wght" 100;
     }
 
     .slider-wght-right {
+      font-family: 'OniriaVF', serif;
       font-variation-settings: "wght" 900;
     }
 
@@ -66,15 +72,12 @@
     }
 
     select {
-      font-family: 'OniriaVF', serif;
-      font-variation-settings: "wght" 400;
+      font-family: var(--ui-font);
       font-size: 1rem;
       background: transparent;
       border: none;
       outline: none;
       appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
       padding: 0.2rem 0;
       cursor: pointer;
     }
@@ -83,8 +86,8 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      font-variation-settings: "wght" 400;
-      margin-top: 1.6rem; /* alineación visual */
+      font-family: var(--ui-font);
+      margin-top: 1.6rem; /* para alineación visual */
     }
 
     .tester {
