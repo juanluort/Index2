@@ -11,10 +11,6 @@
       font-weight: 100 900;
     }
 
-    :root {
-      --ui-font: ui-monospace, SFMono-Regular, Menlo, Monaco, "Courier New", monospace;
-    }
-
     body {
       font-family: 'OniriaVF', serif;
       font-variation-settings: "wght" 400;
@@ -33,7 +29,6 @@
     .control-group {
       display: flex;
       flex-direction: column;
-      gap: 0.3rem;
       justify-content: center;
     }
 
@@ -44,17 +39,15 @@
     }
 
     .slider-label {
-      font-family: var(--ui-font);
+      font-family: 'OniriaVF', serif;
       font-size: 1.2rem;
     }
 
     .slider-wght-left {
-      font-family: 'OniriaVF', serif;
       font-variation-settings: "wght" 100;
     }
 
     .slider-wght-right {
-      font-family: 'OniriaVF', serif;
       font-variation-settings: "wght" 900;
     }
 
@@ -72,12 +65,15 @@
     }
 
     select {
-      font-family: var(--ui-font);
+      font-family: 'OniriaVF', serif;
+      font-variation-settings: "wght" 400;
       font-size: 1rem;
       background: transparent;
       border: none;
       outline: none;
       appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
       padding: 0.2rem 0;
       cursor: pointer;
     }
@@ -86,8 +82,8 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      font-family: var(--ui-font);
-      margin-top: 1.6rem; /* para alineación visual */
+      font-variation-settings: "wght" 400;
+      margin-top: 1.6rem;
     }
 
     .tester {
@@ -116,7 +112,6 @@
 
   <div class="controls">
     <div class="control-group">
-      <label for="size-slider">Tamaño:</label>
       <div class="slider-wrapper">
         <span class="slider-label slider-size-left">A</span>
         <input type="range" id="size-slider" min="16" max="200" value="48">
@@ -125,7 +120,6 @@
     </div>
 
     <div class="control-group">
-      <label for="weight-slider">Peso:</label>
       <div class="slider-wrapper">
         <span class="slider-label slider-wght-left">w</span>
         <input type="range" id="weight-slider" min="100" max="900" step="1" value="400">
@@ -134,7 +128,6 @@
     </div>
 
     <div class="control-group">
-      <label for="preset-weight">Estilo rápido:</label>
       <select id="preset-weight">
         <option value="0" selected>Variable</option>
         <option value="100">Dream</option>
@@ -176,7 +169,7 @@
       weightSlider.addEventListener('input', () => {
         const weight = parseInt(weightSlider.value, 10);
         tester.style.fontVariationSettings = `"wght" ${weight}`;
-        presetWeight.value = 0; // Reset preset
+        presetWeight.value = 0;
       });
 
       // Peso con presets
