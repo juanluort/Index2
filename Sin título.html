@@ -14,7 +14,8 @@
     body {
       font-family: 'OniriaVF', serif;
       font-variation-settings: "wght" 400;
-      background: #f3f3f3;
+      background: #000;
+      color: #fff;
       padding: 2rem;
     }
 
@@ -41,6 +42,7 @@
     .slider-label {
       font-family: 'OniriaVF', serif;
       font-size: 1.2rem;
+      color: white;
     }
 
     .slider-wght-left {
@@ -61,21 +63,7 @@
 
     input[type="range"] {
       width: 200px;
-      accent-color: black;
-    }
-
-    select {
-      font-family: 'OniriaVF', serif;
-      font-variation-settings: "wght" 400;
-      font-size: 1rem;
-      background: transparent;
-      border: none;
-      outline: none;
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      padding: 0.2rem 0;
-      cursor: pointer;
+      accent-color: white;
     }
 
     .checkbox-group {
@@ -83,7 +71,10 @@
       align-items: center;
       gap: 0.5rem;
       font-variation-settings: "wght" 400;
-      margin-top: 1.6rem;
+    }
+
+    .checkbox-group label {
+      font-size: 1rem;
     }
 
     .tester {
@@ -92,10 +83,11 @@
       font-feature-settings: "liga" 1;
       font-size: 48px;
       line-height: 1.2;
-      background: white;
+      background: #000;
+      color: #fff;
       padding: 1.5rem;
       border-radius: 12px;
-      border: 1px solid #ccc;
+      border: 1px solid #fff;
       transition: all 0.2s ease;
       min-height: 3rem;
       outline: none;
@@ -104,7 +96,7 @@
     }
 
     .tester:focus {
-      box-shadow: 0 0 0 3px #ddd;
+      box-shadow: 0 0 0 3px #333;
     }
   </style>
 </head>
@@ -127,17 +119,6 @@
       </div>
     </div>
 
-    <div class="control-group">
-      <select id="preset-weight">
-        <option value="0" selected>Variable</option>
-        <option value="100">Dream</option>
-        <option value="250">Drowse</option>
-        <option value="400">Wake</option>
-        <option value="650">Fadeout</option>
-        <option value="900">Nightmare</option>
-      </select>
-    </div>
-
     <div class="checkbox-group">
       <input type="checkbox" id="liga" checked>
       <label for="liga">Ligaduras</label>
@@ -156,7 +137,6 @@
       const tester = document.getElementById('tester');
       const sizeSlider = document.getElementById('size-slider');
       const weightSlider = document.getElementById('weight-slider');
-      const presetWeight = document.getElementById('preset-weight');
       const liga = document.getElementById('liga');
 
       // Tamaño
@@ -169,15 +149,6 @@
       weightSlider.addEventListener('input', () => {
         const weight = parseInt(weightSlider.value, 10);
         tester.style.fontVariationSettings = `"wght" ${weight}`;
-        presetWeight.value = 0;
-      });
-
-      // Peso con presets
-      presetWeight.addEventListener('change', () => {
-        const value = parseInt(presetWeight.value, 10);
-        if (value === 0) return;
-        weightSlider.value = value;
-        tester.style.fontVariationSettings = `"wght" ${value}`;
       });
 
       // Ligaduras
