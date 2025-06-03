@@ -30,6 +30,7 @@
       display: flex;
       flex-direction: column;
       gap: 0.3rem;
+      justify-content: center;
     }
 
     .slider-wrapper {
@@ -41,7 +42,22 @@
     .slider-label {
       font-family: 'OniriaVF', serif;
       font-size: 1.2rem;
-      font-variation-settings: "wght" 400;
+    }
+
+    .slider-wght-left {
+      font-variation-settings: "wght" 100;
+    }
+
+    .slider-wght-right {
+      font-variation-settings: "wght" 900;
+    }
+
+    .slider-size-left {
+      font-size: 0.8rem;
+    }
+
+    .slider-size-right {
+      font-size: 1.6rem;
     }
 
     input[type="range"] {
@@ -68,6 +84,7 @@
       align-items: center;
       gap: 0.5rem;
       font-variation-settings: "wght" 400;
+      margin-top: 1.6rem; /* alineación visual */
     }
 
     .tester {
@@ -98,23 +115,23 @@
     <div class="control-group">
       <label for="size-slider">Tamaño:</label>
       <div class="slider-wrapper">
-        <span class="slider-label" style="font-size: 0.8rem;">A</span>
+        <span class="slider-label slider-size-left">A</span>
         <input type="range" id="size-slider" min="16" max="200" value="48">
-        <span class="slider-label" style="font-size: 1.6rem;">A</span>
+        <span class="slider-label slider-size-right">A</span>
       </div>
     </div>
 
     <div class="control-group">
       <label for="weight-slider">Peso:</label>
       <div class="slider-wrapper">
-        <span class="slider-label">w</span>
+        <span class="slider-label slider-wght-left">w</span>
         <input type="range" id="weight-slider" min="100" max="900" step="1" value="400">
-        <span class="slider-label">W</span>
+        <span class="slider-label slider-wght-right">w</span>
       </div>
     </div>
 
-    <label>
-      Estilo rápido:
+    <div class="control-group">
+      <label for="preset-weight">Estilo rápido:</label>
       <select id="preset-weight">
         <option value="0" selected>Variable</option>
         <option value="100">Dream</option>
@@ -123,7 +140,7 @@
         <option value="650">Fadeout</option>
         <option value="900">Nightmare</option>
       </select>
-    </label>
+    </div>
 
     <div class="checkbox-group">
       <input type="checkbox" id="liga" checked>
