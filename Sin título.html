@@ -17,6 +17,7 @@
       background: #000;
       color: #fff;
       padding: 2rem;
+      margin: 0;
     }
 
     .controls {
@@ -30,6 +31,7 @@
     .control-group {
       display: flex;
       flex-direction: column;
+      gap: 0.3rem;
       justify-content: center;
     }
 
@@ -42,7 +44,7 @@
     .slider-label {
       font-family: 'OniriaVF', serif;
       font-size: 1.2rem;
-      color: white;
+      color: #fff;
     }
 
     .slider-wght-left {
@@ -67,23 +69,28 @@
     }
 
     .ligature-toggle {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      border: 2px solid white;
-      background-color: white;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .ligature-toggle.inactive {
-      background-color: transparent;
-    }
-
-    .checkbox-group {
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .ligature-button {
+      width: 24px;
+      height: 24px;
+      border: 2px solid white;
+      border-radius: 50%;
+      background: transparent;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .ligature-button.active {
+      background: white;
+    }
+
+    .ligature-label {
+      font-size: 1rem;
     }
 
     .tester {
@@ -92,11 +99,11 @@
       font-feature-settings: "liga" 1;
       font-size: 48px;
       line-height: 1.2;
-      background: #000;
-      color: #fff;
+      background: white;
+      color: black;
       padding: 1.5rem;
       border-radius: 12px;
-      border: 1px solid #fff;
+      border: none;
       transition: all 0.2s ease;
       min-height: 3rem;
       outline: none;
@@ -105,17 +112,25 @@
     }
 
     .tester:focus {
-      box-shadow: 0 0 0 3px #333;
+      box-shadow: 0 0 0 3px #444;
+    }
+
+    .title {
+      font-family: 'OniriaVF', serif;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
     }
   </style>
 </head>
 <body>
 
+  <div class="title">Test Oniria live</div>
+
   <div class="controls">
     <div class="control-group">
       <div class="slider-wrapper">
         <span class="slider-label slider-size-left">A</span>
-        <input type="range" id="size-slider" min="16" max="200" value="48">
+        <input type="range" id="size-slider" min="0" max="100" value="50">
         <span class="slider-label slider-size-right">A</span>
       </div>
     </div>
@@ -128,9 +143,9 @@
       </div>
     </div>
 
-    <div class="checkbox-group">
-      <span class="slider-label">Ligaduras</span>
-      <button id="ligature-btn" class="ligature-toggle" aria-label="Toggle Ligatures"></button>
+    <div class="control-group ligature-toggle">
+      <button class="ligature-button active" id="liga-button" aria-label="Toggle Ligatures"></button>
+      <span class="ligature-label">Ligaduras</span>
     </div>
   </div>
 
@@ -139,40 +154,40 @@
     id="tester"
     contenteditable="true"
     spellcheck="false"
-  >Test Oniria live</div>
+  >Dreams into nightmares</div>
 
   <script>
     window.addEventListener('DOMContentLoaded', () => {
       const tester = document.getElementById('tester');
       const sizeSlider = document.getElementById('size-slider');
       const weightSlider = document.getElementById('weight-slider');
-      const ligaBtn = document.getElementById('ligature-btn');
+      const ligaButton = document.getElementById('liga-button');
 
-      // Inicializar ligaduras
-      ligaBtn.classList.remove('inactive');
-      tester.style.fontFeatureSettings = `"liga" 1`;
-
-      // Tamaño
+      // Tamaño controlado (20% a 60% del rango original: 49px a 134px)
       sizeSlider.addEventListener('input', () => {
-        const size = sizeSlider.value;
+        const percentage = sizeSlider.value / 100;
+        const min = 49;
+        const max = 134;
+        const size = min + (max - min) * percentage;
         tester.style.fontSize = `${size}px`;
       });
 
-      // Peso
+      // Peso con slider
       weightSlider.addEventListener('input', () => {
         const weight = parseInt(weightSlider.value, 10);
         tester.style.fontVariationSettings = `"wght" ${weight}`;
       });
 
-      // Ligaduras toggle
-      ligaBtn.addEventListener('click', () => {
-        const active = ligaBtn.classList.toggle('inactive');
-        tester.style.fontFeatureSettings = `"liga" ${active ? 0 : 1}`;
+      // Toggle ligaduras
+      ligaButton.addEventListener('click', () => {
+        ligaButton.classList.toggle('active');
+        const isActive = ligaButton.classList.contains('active');
+        tester.style.fontFeatureSettings = `"liga" ${isActive ? 1 : 0}`;
       });
 
-      // Limitar caracteres
+      // Limitar caracteres y evitar salto de línea
       tester.addEventListener('input', () => {
-        let text = tester.innerText.replace(/\n/g, ' ').slice(0, 30);
+        let text = tester.innerText.replace(/\n/g, ' ').slice(0, 50);
         tester.innerText = text;
         placeCaretAtEnd(tester);
       });
