@@ -17,6 +17,8 @@
       background: #000;
       color: #fff;
       padding: 2rem;
+      margin: 0;
+      overflow-y: hidden;
     }
 
     .controls {
@@ -62,48 +64,44 @@
       font-size: 1.6rem;
     }
 
+    /* Estilo sliders con relleno dinámico */
     input[type="range"] {
-      width: 202px; /* 2px más ancho */
       -webkit-appearance: none;
+      width: 200px;
+      height: 20px; /* altura del track */
       background: transparent;
       cursor: pointer;
-      margin: 0 0.3rem;
+      border-radius: 12px;
       position: relative;
-      height: 24px; /* suficiente para el thumb */
     }
 
-    /* Track con solo borde blanco y fondo transparente */
+    /* Track: usamos background lineal para simular relleno */
     input[type="range"]::-webkit-slider-runnable-track {
-      width: 100%;
-      height: 6px;
-      background: transparent;
+      height: 10px;
       border: 2px solid white;
       border-radius: 12px;
-      box-sizing: border-box;
+      background: linear-gradient(to right, white 0%, white var(--fill, 0%), transparent var(--fill, 0%), transparent 100%);
     }
     input[type="range"]::-moz-range-track {
-      width: 100%;
-      height: 6px;
-      background: transparent;
+      height: 10px;
       border: 2px solid white;
       border-radius: 12px;
-      box-sizing: border-box;
+      background: linear-gradient(to right, white 0%, white var(--fill, 0%), transparent var(--fill, 0%), transparent 100%);
     }
 
-    /* Thumb igual al botón: tamaño 22x22 (21+1) para que sea 1px más grande que antes */
+    /* Thumb reducido */
     input[type="range"]::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
-      width: 22px;
-      height: 22px;
+      width: 20px;
+      height: 20px;
       background: white;
       border: 2px solid white;
       border-radius: 50%;
-      margin-top: -9px; /* centra el thumb respecto al track de 6px */
-      cursor: pointer;
+      margin-top: -6px; /* centrar thumb con track */
+      transition: background-color 0.2s ease, border-color 0.2s ease;
       position: relative;
       z-index: 2;
-      transition: background-color 0.2s ease, border-color 0.2s ease;
     }
     input[type="range"]:hover::-webkit-slider-thumb {
       background-color: #ddd;
@@ -115,15 +113,15 @@
     }
 
     input[type="range"]::-moz-range-thumb {
-      width: 22px;
-      height: 22px;
+      width: 20px;
+      height: 20px;
       background: white;
       border: 2px solid white;
       border-radius: 50%;
-      cursor: pointer;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
       position: relative;
       z-index: 2;
-      transition: background-color 0.2s ease, border-color 0.2s ease;
+      cursor: pointer;
     }
     input[type="range"]:hover::-moz-range-thumb {
       background-color: #ddd;
@@ -134,12 +132,10 @@
       border-color: #bbb;
     }
 
-    /* El relleno de la barra, se hará dinámico con JS (linear-gradient) */
-
-    /* Botón de ligadura */
+    /* Botón de ligadura reducido */
     .ligature-toggle {
-      width: 22px;
-      height: 22px;
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
       border: 2px solid white;
       background-color: white;
@@ -150,20 +146,20 @@
 
     .ligature-toggle.inactive {
       background-color: transparent;
-      border: 2px solid white;
     }
 
     .checkbox-group {
       display: flex;
       align-items: center;
       gap: 0.5rem;
+      user-select: none;
     }
 
     .tester {
       font-family: 'OniriaVF', serif;
       font-variation-settings: "wght" 400;
       font-feature-settings: "liga" 1;
-      font-size: 48px;
+      font-size: 49px;
       line-height: 1.2;
       background: #000;
       color: #fff;
@@ -188,7 +184,7 @@
     <div class="control-group">
       <div class="slider-wrapper">
         <span class="slider-label slider-size-left">A</span>
-        <input type="range" id="size-slider" min="16" max="200" value="48">
+        <input type="range" id="size-slider" min="49" max="134" value="49" style="--fill: 0%;">
         <span class="slider-label slider-size-right">A</span>
       </div>
     </div>
@@ -196,14 +192,14 @@
     <div class="control-group">
       <div class="slider-wrapper">
         <span class="slider-label slider-wght-left">w</span>
-        <input type="range" id="weight-slider" min="100" max="900" step="1" value="400">
+        <input type="range" id="weight-slider" min="100" max="900" step="1" value="400" style="--fill: 33%;">
         <span class="slider-label slider-wght-right">w</span>
       </div>
     </div>
 
     <div class="checkbox-group">
+      <button id="ligature-btn" class="ligature-toggle active" aria-label="Toggle Ligatures"></button>
       <span class="slider-label">Ligaduras</span>
-      <button id="ligature-btn" class="ligature-toggle" aria-label="Toggle Ligatures"></button>
     </div>
   </div>
 
@@ -221,41 +217,43 @@
       const weightSlider = document.getElementById('weight-slider');
       const ligaBtn = document.getElementById('ligature-btn');
 
-      // Inicializar ligaduras
-      ligaBtn.classList.remove('inactive');
-      tester.style.fontFeatureSettings = `"liga" 1`;
-
-      // Función para actualizar relleno izquierdo del slider
-      function updateSliderFill(slider) {
-        const val = (slider.value - slider.min) / (slider.max - slider.min) * 100;
-        slider.style.background = `linear-gradient(to right, white 0%, white ${val}%, transparent ${val}%, transparent 100%)`;
+      function updateFill(slider) {
+        const min = Number(slider.min);
+        const max = Number(slider.max);
+        const val = Number(slider.value);
+        // Calcula porcentaje para relleno
+        const percent = ((val - min) / (max - min)) * 100;
+        slider.style.setProperty('--fill', `${percent}%`);
       }
 
-      // Tamaño
+      // Inicial fill
+      updateFill(sizeSlider);
+      updateFill(weightSlider);
+
+      // Tamaño ajustado de 49px a 134px
       sizeSlider.addEventListener('input', () => {
         const size = sizeSlider.value;
         tester.style.fontSize = `${size}px`;
-        updateSliderFill(sizeSlider);
+        updateFill(sizeSlider);
       });
-      updateSliderFill(sizeSlider);
 
-      // Peso
+      // Peso con slider
       weightSlider.addEventListener('input', () => {
         const weight = parseInt(weightSlider.value, 10);
         tester.style.fontVariationSettings = `"wght" ${weight}`;
-        updateSliderFill(weightSlider);
+        updateFill(weightSlider);
       });
-      updateSliderFill(weightSlider);
 
-      // Ligaduras toggle
+      // Botón de ligaduras
       ligaBtn.addEventListener('click', () => {
-        const active = ligaBtn.classList.toggle('inactive');
-        tester.style.fontFeatureSettings = `"liga" ${active ? 0 : 1}`;
+        ligaBtn.classList.toggle('active');
+        const ligaVal = ligaBtn.classList.contains('active') ? 1 : 0;
+        tester.style.fontFeatureSettings = `"liga" ${ligaVal}`;
       });
 
-      // Limitar caracteres
+      // Limitar a 50 caracteres sin saltos de línea
       tester.addEventListener('input', () => {
-        let text = tester.innerText.replace(/\n/g, ' ').slice(0, 30);
+        let text = tester.innerText.replace(/\n/g, ' ').slice(0, 50);
         tester.innerText = text;
         placeCaretAtEnd(tester);
       });
