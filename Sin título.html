@@ -64,18 +64,16 @@
       font-size: 1.6rem;
     }
 
-    /* Estilo sliders con relleno dinámico */
     input[type="range"] {
       -webkit-appearance: none;
       width: 200px;
-      height: 20px; /* altura del track */
+      height: 20px;
       background: transparent;
       cursor: pointer;
       border-radius: 12px;
       position: relative;
     }
 
-    /* Track: usamos background lineal para simular relleno */
     input[type="range"]::-webkit-slider-runnable-track {
       height: 10px;
       border: 2px solid white;
@@ -89,7 +87,6 @@
       background: linear-gradient(to right, white 0%, white var(--fill, 0%), transparent var(--fill, 0%), transparent 100%);
     }
 
-    /* Thumb reducido */
     input[type="range"]::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
@@ -98,7 +95,7 @@
       background: white;
       border: 2px solid white;
       border-radius: 50%;
-      margin-top: -6px; /* centrar thumb con track */
+      margin-top: -6px;
       transition: background-color 0.2s ease, border-color 0.2s ease;
       position: relative;
       z-index: 2;
@@ -132,19 +129,17 @@
       border-color: #bbb;
     }
 
-    /* Botón de ligadura */
     .ligature-toggle {
       width: 20px;
       height: 20px;
       border-radius: 50%;
       border: 2px solid white;
-      background-color: white;  /* activo */
+      background-color: white;
       cursor: pointer;
       transition: all 0.2s ease;
       flex-shrink: 0;
     }
 
-    /* Cuando el botón NO tiene la clase active (inactivo) */
     .ligature-toggle:not(.active) {
       background-color: transparent;
       border: 2px solid white;
@@ -201,7 +196,7 @@
 
     <div class="checkbox-group">
       <button id="ligature-btn" class="ligature-toggle active" aria-label="Toggle Ligatures"></button>
-      <span class="slider-label">Ligaduras</span>
+      <span class="slider-label">Ligatures</span>
     </div>
   </div>
 
@@ -223,37 +218,31 @@
         const min = Number(slider.min);
         const max = Number(slider.max);
         const val = Number(slider.value);
-        // Calcula porcentaje para relleno
         const percent = ((val - min) / (max - min)) * 100;
         slider.style.setProperty('--fill', `${percent}%`);
       }
 
-      // Inicial fill
       updateFill(sizeSlider);
       updateFill(weightSlider);
 
-      // Tamaño ajustado de 49px a 134px
       sizeSlider.addEventListener('input', () => {
         const size = sizeSlider.value;
         tester.style.fontSize = `${size}px`;
         updateFill(sizeSlider);
       });
 
-      // Peso con slider
       weightSlider.addEventListener('input', () => {
         const weight = parseInt(weightSlider.value, 10);
         tester.style.fontVariationSettings = `"wght" ${weight}`;
         updateFill(weightSlider);
       });
 
-      // Botón de ligaduras
       ligaBtn.addEventListener('click', () => {
         ligaBtn.classList.toggle('active');
         const ligaVal = ligaBtn.classList.contains('active') ? 1 : 0;
         tester.style.fontFeatureSettings = `"liga" ${ligaVal}`;
       });
 
-      // Limitar a 50 caracteres sin saltos de línea
       tester.addEventListener('input', () => {
         let text = tester.innerText.replace(/\n/g, ' ').slice(0, 50);
         tester.innerText = text;
