@@ -173,6 +173,44 @@
     .tester:focus {
       box-shadow: 0 0 0 3px #333;
     }
+
+    /* --- Responsive --- */
+    @media (max-width: 600px) {
+      body {
+        padding: 1rem;
+      }
+
+      .controls {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .control-group, .checkbox-group {
+        width: 100%;
+      }
+
+      input[type="range"] {
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .tester {
+        font-size: 6vw !important;
+        min-height: auto;
+        white-space: normal;
+        overflow-x: auto;
+        word-break: break-word;
+      }
+
+      .slider-label {
+        font-size: 1rem;
+      }
+
+      .slider-size-left,
+      .slider-size-right {
+        font-size: 1rem !important;
+      }
+    }
   </style>
 </head>
 <body>
