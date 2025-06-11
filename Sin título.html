@@ -156,7 +156,7 @@
       font-family: 'OniriaVF', serif;
       font-variation-settings: "wght" 400;
       font-feature-settings: "liga" 1;
-      font-size: 134px;
+      font-size: 67px; /* empieza al 50% */
       line-height: 1.2;
       background: #000;
       color: #fff;
@@ -164,7 +164,7 @@
       border-radius: 12px;
       border: 1px solid #fff;
       transition: all 0.2s ease;
-      height: 8rem; /* fijo en escritorio */
+      height: 9.5rem; /* altura fija para escritorio */
       max-width: 100%;
       width: 100%;
       box-sizing: border-box;
@@ -198,12 +198,12 @@
       }
 
       .tester {
-        font-size: 6vw;
+        font-size: 6vw; /* tamaño base móvil */
         min-height: auto;
+        height: auto; /* altura adaptativa */
         white-space: normal;
         overflow-x: auto;
         word-break: break-word;
-        height: auto; /* altura móvil libre */
       }
 
       .slider-label {
@@ -223,7 +223,7 @@
     <div class="control-group">
       <div class="slider-wrapper">
         <span class="slider-label slider-size-left">A</span>
-        <input type="range" id="size-slider" min="49" max="134" value="134" style="--fill: 100%;">
+        <input type="range" id="size-slider" min="49" max="134" value="67" style="--fill: 0%;">
         <span class="slider-label slider-size-right">A</span>
       </div>
     </div>
@@ -256,7 +256,7 @@
       const weightSlider = document.getElementById('weight-slider');
       const ligaBtn = document.getElementById('ligature-btn');
 
-      const MOBILE_MAX_SIZE = 73;
+      const MOBILE_MAX_SIZE = 73; // máximo tamaño en móvil
 
       function updateFill(slider) {
         const min = Number(slider.min);
@@ -269,26 +269,14 @@
       updateFill(sizeSlider);
       updateFill(weightSlider);
 
-      // Set initial font size depending on screen
-      function setInitialFontSize() {
-        const isMobile = window.matchMedia("(max-width: 600px)").matches;
-        if (isMobile) {
-          tester.style.fontSize = `${MOBILE_MAX_SIZE}px`;
-          sizeSlider.value = MOBILE_MAX_SIZE;
-        } else {
-          tester.style.fontSize = `${sizeSlider.max}px`;
-          sizeSlider.value = sizeSlider.max;
-        }
-        updateFill(sizeSlider);
-      }
-      setInitialFontSize();
-
-      // Resize handler to reset size when screen size changes
-      window.matchMedia("(max-width: 600px)").addEventListener('change', setInitialFontSize);
+      // Inicializa tamaño y peso con valores slider
+      tester.style.fontSize = `${sizeSlider.value}px`;
+      tester.style.fontVariationSettings = `"wght" ${weightSlider.value}`;
 
       sizeSlider.addEventListener('input', () => {
         const rawSize = Number(sizeSlider.value);
         const isMobile = window.matchMedia("(max-width: 600px)").matches;
+        // Limita tamaño máximo en móvil
         const size = isMobile && rawSize > MOBILE_MAX_SIZE ? MOBILE_MAX_SIZE : rawSize;
         tester.style.fontSize = `${size}px`;
         updateFill(sizeSlider);
@@ -309,15 +297,19 @@
       tester.addEventListener('input', () => {
         let text = tester.innerText.replace(/\n/g, ' ').slice(0, 50);
         tester.innerText = text;
-        // Move caret to end (optional)
+        placeCaretAtEnd(tester);
+      });
+
+      function placeCaretAtEnd(el) {
         const range = document.createRange();
         const sel = window.getSelection();
-        range.selectNodeContents(tester);
+        range.selectNodeContents(el);
         range.collapse(false);
         sel.removeAllRanges();
         sel.addRange(range);
-      });
+      }
     });
   </script>
+
 </body>
 </html>
