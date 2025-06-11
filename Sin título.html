@@ -214,7 +214,7 @@
       const weightSlider = document.getElementById('weight-slider');
       const ligaBtn = document.getElementById('ligature-btn');
 
-      const MOBILE_MAX_SIZE = 67; // 50% de 134
+      const MOBILE_MAX_SIZE = 67; // Tamaño máximo real en móvil
 
       function updateFill(slider) {
         const min = Number(slider.min);
@@ -229,21 +229,38 @@
 
       const isMobile = window.matchMedia("(max-width: 600px)").matches;
 
-      // Al cargar, tamaño real del texto
+      // Valor inicial para el tamaño real (en móvil limitamos a MOBILE_MAX_SIZE)
       const initialSize = isMobile ? MOBILE_MAX_SIZE : Number(sizeSlider.value);
       tester.style.fontSize = `${initialSize}px`;
 
-      // El slider siempre inicia en 134 para mostrar 100% visualmente
+      // El slider siempre inicia en 134 (valor máximo para mostrar 100%)
       sizeSlider.value = 134;
       updateFill(sizeSlider);
 
       tester.style.fontVariationSettings = `"wght" ${weightSlider.value}`;
 
       sizeSlider.addEventListener('input', () => {
-        const rawSize = Number(sizeSlider.value);
-        const size = isMobile && rawSize > MOBILE_MAX_SIZE ? MOBILE_MAX_SIZE : rawSize;
-        tester.style.fontSize = `${size}px`;
-        updateFill(sizeSlider);
+        const rawValue = Number(sizeSlider.value);
+        let appliedSize;
+
+        if (isMobile) {
+          // Si en móvil y el slider está más alto que MOBILE_MAX_SIZE,
+          // aplicamos MOBILE_MAX_SIZE pero el slider queda en rawValue para visual.
+          appliedSize = rawValue > MOBILE_MAX_SIZE ? MOBILE_MAX_SIZE : rawValue;
+        } else {
+          appliedSize = rawValue;
+        }
+
+        tester.style.fontSize = `${appliedSize}px`;
+
+        // Para que la barra de progreso sea consistente, si en móvil el slider
+        // está por encima del límite, mostramos como si estuviera en 100%
+        if (isMobile && rawValue > MOBILE_MAX_SIZE) {
+          // Cambiamos temporalmente el slider para que visualmente esté al máximo
+          sizeSlider.style.setProperty('--fill', '100%');
+        } else {
+          updateFill(sizeSlider);
+        }
       });
 
       weightSlider.addEventListener('input', () => {
@@ -254,26 +271,4 @@
 
       ligaBtn.addEventListener('click', () => {
         ligaBtn.classList.toggle('active');
-        const ligaVal = ligaBtn.classList.contains('active') ? 1 : 0;
-        tester.style.fontFeatureSettings = `"liga" ${ligaVal}`;
-      });
-
-      tester.addEventListener('input', () => {
-        let text = tester.innerText.replace(/\n/g, ' ').slice(0, 50);
-        tester.innerText = text;
-        placeCaretAtEnd(tester);
-      });
-
-      function placeCaretAtEnd(el) {
-        const range = document.createRange();
-        const sel = window.getSelection();
-        range.selectNodeContents(el);
-        range.collapse(false);
-        sel.removeAllRanges();
-        sel.addRange(range);
-      }
-    });
-  </script>
-
-</body>
-</html>
+        const ligaVal
