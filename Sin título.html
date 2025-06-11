@@ -156,7 +156,7 @@
       font-family: 'OniriaVF', serif;
       font-variation-settings: "wght" 400;
       font-feature-settings: "liga" 1;
-      font-size: 134px;
+      font-size: 67px; /* tamaño inicial 50% */
       line-height: 1.2;
       background: #000;
       color: #fff;
@@ -168,6 +168,9 @@
       outline: none;
       overflow: hidden;
       white-space: nowrap;
+
+      height: 190px; /* altura fija del contenedor */
+      box-sizing: border-box;
     }
 
     .tester:focus {
@@ -200,6 +203,9 @@
         white-space: normal;
         overflow-x: auto;
         word-break: break-word;
+
+        /* Para móvil mantener también una altura fija para evitar saltos */
+        height: 190px;
       }
 
       .slider-label {
@@ -219,7 +225,7 @@
     <div class="control-group">
       <div class="slider-wrapper">
         <span class="slider-label slider-size-left">A</span>
-        <input type="range" id="size-slider" min="49" max="134" value="134" style="--fill: 100%;">
+        <input type="range" id="size-slider" min="49" max="134" value="67" style="--fill: 33%;">
         <span class="slider-label slider-size-right">A</span>
       </div>
     </div>
@@ -252,7 +258,7 @@
       const weightSlider = document.getElementById('weight-slider');
       const ligaBtn = document.getElementById('ligature-btn');
 
-      const MOBILE_MAX_SIZE = 67; // 50% of 134
+      const MOBILE_MAX_SIZE = 67; // 50% de 134
 
       function updateFill(slider) {
         const min = Number(slider.min);
@@ -262,11 +268,13 @@
         slider.style.setProperty('--fill', `${percent}%`);
       }
 
+      // Inicializa slider y barra de progreso con valores correctos
+      sizeSlider.value = MOBILE_MAX_SIZE;
       updateFill(sizeSlider);
       updateFill(weightSlider);
 
       // Inicializa fontSize y peso con valores del slider
-      tester.style.fontSize = `${sizeSlider.value}px`;
+      tester.style.fontSize = `${MOBILE_MAX_SIZE}px`;
       tester.style.fontVariationSettings = `"wght" ${weightSlider.value}`;
 
       sizeSlider.addEventListener('input', () => {
