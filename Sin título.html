@@ -303,4 +303,21 @@
       ligaBtn.addEventListener('click', () => {
         ligaBtn.classList.toggle('active');
         const ligaVal = ligaBtn.classList.contains('active') ? 1 : 0;
-        tester
+        tester.style.fontFeatureSettings = `"liga" ${ligaVal}`;
+      });
+
+      tester.addEventListener('input', () => {
+        let text = tester.innerText.replace(/\n/g, ' ').slice(0, 50);
+        tester.innerText = text;
+        // Move caret to end (optional)
+        const range = document.createRange();
+        const sel = window.getSelection();
+        range.selectNodeContents(tester);
+        range.collapse(false);
+        sel.removeAllRanges();
+        sel.addRange(range);
+      });
+    });
+  </script>
+</body>
+</html>
