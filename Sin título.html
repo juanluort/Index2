@@ -158,23 +158,25 @@
       font-feature-settings: "liga" 1;
       font-size: 134px;
       line-height: 1.2;
-      height: 161px; /* Fijo al máximo tamaño */
       background: #000;
       color: #fff;
       padding: 1.5rem;
       border-radius: 12px;
       border: 1px solid #fff;
       transition: all 0.2s ease;
+      min-height: 3rem;
       outline: none;
       overflow: hidden;
       white-space: nowrap;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
     }
 
     .tester:focus {
       box-shadow: 0 0 0 3px #333;
     }
 
-    /* --- Responsive --- */
     @media (max-width: 600px) {
       body {
         padding: 1rem;
@@ -196,7 +198,6 @@
 
       .tester {
         font-size: 6vw;
-        height: auto;
         min-height: auto;
         white-space: normal;
         overflow-x: auto;
@@ -220,7 +221,7 @@
     <div class="control-group">
       <div class="slider-wrapper">
         <span class="slider-label slider-size-left">A</span>
-        <input type="range" id="size-slider" min="49" max="134" value="73" style="--fill: 18%;">
+        <input type="range" id="size-slider" min="49" max="134" value="134" style="--fill: 100%;">
         <span class="slider-label slider-size-right">A</span>
       </div>
     </div>
