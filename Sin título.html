@@ -156,15 +156,15 @@
       font-family: 'OniriaVF', serif;
       font-variation-settings: "wght" 400;
       font-feature-settings: "liga" 1;
-      font-size: 67px;
+      font-size: 134px;
       line-height: 1.2;
+      height: 161px; /* Fijo al máximo tamaño */
       background: #000;
       color: #fff;
       padding: 1.5rem;
       border-radius: 12px;
       border: 1px solid #fff;
       transition: all 0.2s ease;
-      min-height: 3rem;
       outline: none;
       overflow: hidden;
       white-space: nowrap;
@@ -174,6 +174,7 @@
       box-shadow: 0 0 0 3px #333;
     }
 
+    /* --- Responsive --- */
     @media (max-width: 600px) {
       body {
         padding: 1rem;
@@ -195,6 +196,7 @@
 
       .tester {
         font-size: 6vw;
+        height: auto;
         min-height: auto;
         white-space: normal;
         overflow-x: auto;
@@ -218,7 +220,7 @@
     <div class="control-group">
       <div class="slider-wrapper">
         <span class="slider-label slider-size-left">A</span>
-        <input type="range" id="size-slider" min="49" max="134" value="67" style="--fill: 25%;">
+        <input type="range" id="size-slider" min="49" max="134" value="73" style="--fill: 18%;">
         <span class="slider-label slider-size-right">A</span>
       </div>
     </div>
@@ -251,7 +253,7 @@
       const weightSlider = document.getElementById('weight-slider');
       const ligaBtn = document.getElementById('ligature-btn');
 
-      const MOBILE_MAX_SIZE = 73; // límite máximo móvil
+      const MOBILE_MAX_SIZE = 73;
 
       function updateFill(slider) {
         const min = Number(slider.min);
