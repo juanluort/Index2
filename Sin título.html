@@ -164,7 +164,7 @@
       border-radius: 12px;
       border: 1px solid #fff;
       transition: all 0.2s ease;
-      height: 8rem; /* Fijo para escritorio */
+      height: 8rem; /* fijo en escritorio */
       max-width: 100%;
       width: 100%;
       box-sizing: border-box;
@@ -203,7 +203,7 @@
         white-space: normal;
         overflow-x: auto;
         word-break: break-word;
-        height: auto; /* Altura libre para móvil */
+        height: auto; /* altura móvil libre */
       }
 
       .slider-label {
@@ -269,13 +269,22 @@
       updateFill(sizeSlider);
       updateFill(weightSlider);
 
-      const isMobile = window.matchMedia("(max-width: 600px)").matches;
-      const initialSize = isMobile ? MOBILE_MAX_SIZE : Number(sizeSlider.value);
-      tester.style.fontSize = `${initialSize}px`;
-      sizeSlider.value = initialSize;
-      updateFill(sizeSlider);
+      // Set initial font size depending on screen
+      function setInitialFontSize() {
+        const isMobile = window.matchMedia("(max-width: 600px)").matches;
+        if (isMobile) {
+          tester.style.fontSize = `${MOBILE_MAX_SIZE}px`;
+          sizeSlider.value = MOBILE_MAX_SIZE;
+        } else {
+          tester.style.fontSize = `${sizeSlider.max}px`;
+          sizeSlider.value = sizeSlider.max;
+        }
+        updateFill(sizeSlider);
+      }
+      setInitialFontSize();
 
-      tester.style.fontVariationSettings = `"wght" ${weightSlider.value}`;
+      // Resize handler to reset size when screen size changes
+      window.matchMedia("(max-width: 600px)").addEventListener('change', setInitialFontSize);
 
       sizeSlider.addEventListener('input', () => {
         const rawSize = Number(sizeSlider.value);
@@ -294,8 +303,4 @@
       ligaBtn.addEventListener('click', () => {
         ligaBtn.classList.toggle('active');
         const ligaVal = ligaBtn.classList.contains('active') ? 1 : 0;
-        tester.style.fontFeatureSettings = `"liga" ${ligaVal}`;
-      });
-
-      tester.addEventListener('input', () => {
-        let text = tester.innerText.replace(/\n/g, ' ').slice(0, 50);
+        tester
