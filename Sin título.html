@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Type Tester</title>
   <style>
     @font-face {
@@ -13,11 +13,10 @@
 
     body {
       font-family: 'OniriaVF', serif;
-      font-variation-settings: "wght" 400;
       background: #000;
       color: #fff;
-      padding: 2rem;
       margin: 0;
+      padding: 2rem;
       overflow-y: hidden;
     }
 
@@ -152,11 +151,12 @@
       user-select: none;
     }
 
+    /* --- MARCO GRANDE FIJO EN ESCRITORIO --- */
     .tester {
       font-family: 'OniriaVF', serif;
       font-variation-settings: "wght" 400;
       font-feature-settings: "liga" 1;
-      font-size: 67px; /* empieza al 50% */
+      font-size: 67px; /* tamaño inicial texto */
       line-height: 1.2;
       background: #000;
       color: #fff;
@@ -164,7 +164,7 @@
       border-radius: 12px;
       border: 1px solid #fff;
       transition: all 0.2s ease;
-      height: 9.5rem; /* altura fija para escritorio */
+      height: 12rem; /* marco grande fijo en escritorio */
       max-width: 100%;
       width: 100%;
       box-sizing: border-box;
@@ -177,7 +177,7 @@
       box-shadow: 0 0 0 3px #333;
     }
 
-    /* --- Responsive --- */
+    /* --- Responsive para móvil --- */
     @media (max-width: 600px) {
       body {
         padding: 1rem;
@@ -198,9 +198,9 @@
       }
 
       .tester {
-        font-size: 6vw; /* tamaño base móvil */
+        font-size: 6vw; /* tamaño móvil */
         min-height: auto;
-        height: auto; /* altura adaptativa */
+        height: auto; /* altura móvil flexible */
         white-space: normal;
         overflow-x: auto;
         word-break: break-word;
@@ -256,7 +256,7 @@
       const weightSlider = document.getElementById('weight-slider');
       const ligaBtn = document.getElementById('ligature-btn');
 
-      const MOBILE_MAX_SIZE = 73; // máximo tamaño en móvil
+      const MOBILE_MAX_SIZE = 73; // límite tamaño móvil
 
       function updateFill(slider) {
         const min = Number(slider.min);
