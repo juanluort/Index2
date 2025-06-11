@@ -198,9 +198,11 @@
       }
 
       .tester {
-        font-size: 6vw; /* tamaño móvil */
+        font-size: 50%; /* tamaño móvil pequeño fijo */
+        max-font-size: 73px;
+        font-size: 36.5px; /* 50% de 73px */
         min-height: auto;
-        height: auto; /* altura móvil flexible */
+        height: auto;
         white-space: normal;
         overflow-x: auto;
         word-break: break-word;
@@ -256,7 +258,7 @@
       const weightSlider = document.getElementById('weight-slider');
       const ligaBtn = document.getElementById('ligature-btn');
 
-      const MOBILE_MAX_SIZE = 73; // límite tamaño móvil
+      const MOBILE_MAX_SIZE = 73;
 
       function updateFill(slider) {
         const min = Number(slider.min);
@@ -269,15 +271,14 @@
       updateFill(sizeSlider);
       updateFill(weightSlider);
 
-      // Inicializa tamaño y peso con valores slider
-      // Para escritorio: size máximo, para móvil, se ajustará en input listener
+      // Inicializa tamaño y peso (desktop inicial máximo)
       tester.style.fontSize = `${sizeSlider.value}px`;
       tester.style.fontVariationSettings = `"wght" ${weightSlider.value}`;
 
       sizeSlider.addEventListener('input', () => {
         const rawSize = Number(sizeSlider.value);
         const isMobile = window.matchMedia("(max-width: 600px)").matches;
-        // Limita tamaño máximo en móvil
+        // Solo limita tamaño máximo en móvil
         const size = isMobile && rawSize > MOBILE_MAX_SIZE ? MOBILE_MAX_SIZE : rawSize;
         tester.style.fontSize = `${size}px`;
         updateFill(sizeSlider);
