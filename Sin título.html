@@ -156,7 +156,7 @@
       font-family: 'OniriaVF', serif;
       font-variation-settings: "wght" 400;
       font-feature-settings: "liga" 1;
-      font-size: 75px; /* tamaño inicial 75px */
+      font-size: 72px; /* tamaño inicial 72px */
       line-height: 1.2;
       background: #000;
       color: #fff;
@@ -169,7 +169,7 @@
       overflow: hidden;
       white-space: nowrap;
 
-      height: 190px; /* altura fija */
+      height: 183px; /* altura fija ajustada */
       box-sizing: border-box;
     }
 
@@ -198,14 +198,13 @@
       }
 
       .tester {
-        font-size: 6vw; /* base responsive size */
+        font-size: 6vw;
         min-height: auto;
         white-space: normal;
         overflow-x: auto;
         word-break: break-word;
 
-        /* altura fija para evitar saltos */
-        height: 190px;
+        height: 183px;
       }
 
       .slider-label {
@@ -225,7 +224,7 @@
     <div class="control-group">
       <div class="slider-wrapper">
         <span class="slider-label slider-size-left">A</span>
-        <input type="range" id="size-slider" min="49" max="134" value="75" style="--fill: 20%;">
+        <input type="range" id="size-slider" min="49" max="134" value="72" style="--fill: 18.4%;">
         <span class="slider-label slider-size-right">A</span>
       </div>
     </div>
@@ -258,7 +257,7 @@
       const weightSlider = document.getElementById('weight-slider');
       const ligaBtn = document.getElementById('ligature-btn');
 
-      const MOBILE_MAX_SIZE = 75; // actualizado a 75px
+      const MOBILE_MAX_SIZE = 72; // actualizado a 72px
 
       function updateFill(slider) {
         const min = Number(slider.min);
@@ -268,24 +267,17 @@
         slider.style.setProperty('--fill', `${percent}%`);
       }
 
-      // Inicializa slider y barra de progreso con valores correctos
       sizeSlider.value = MOBILE_MAX_SIZE;
       updateFill(sizeSlider);
       updateFill(weightSlider);
 
-      // Inicializa fontSize y peso con valores del slider
       tester.style.fontSize = `${MOBILE_MAX_SIZE}px`;
       tester.style.fontVariationSettings = `"wght" ${weightSlider.value}`;
 
       sizeSlider.addEventListener('input', () => {
         const rawSize = Number(sizeSlider.value);
-
-        // Detecta si es móvil
         const isMobile = window.matchMedia("(max-width: 600px)").matches;
-
-        // Limita tamaño máximo en móvil
         const size = isMobile && rawSize > MOBILE_MAX_SIZE ? MOBILE_MAX_SIZE : rawSize;
-
         tester.style.fontSize = `${size}px`;
         updateFill(sizeSlider);
       });
