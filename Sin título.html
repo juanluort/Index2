@@ -195,7 +195,7 @@
       }
 
       .tester {
-        font-size: 6vw; /* Quité el !important para que el slider funcione */
+        font-size: 6vw; /* base responsive size */
         min-height: auto;
         white-space: normal;
         overflow-x: auto;
@@ -252,6 +252,8 @@
       const weightSlider = document.getElementById('weight-slider');
       const ligaBtn = document.getElementById('ligature-btn');
 
+      const MOBILE_MAX_SIZE = 67; // 50% of 134
+
       function updateFill(slider) {
         const min = Number(slider.min);
         const max = Number(slider.max);
@@ -263,12 +265,19 @@
       updateFill(sizeSlider);
       updateFill(weightSlider);
 
-      // Inicializa fontSize para que coincida con slider al cargar
+      // Inicializa fontSize y peso con valores del slider
       tester.style.fontSize = `${sizeSlider.value}px`;
       tester.style.fontVariationSettings = `"wght" ${weightSlider.value}`;
 
       sizeSlider.addEventListener('input', () => {
-        const size = sizeSlider.value;
+        const rawSize = Number(sizeSlider.value);
+
+        // Detecta si es móvil
+        const isMobile = window.matchMedia("(max-width: 600px)").matches;
+
+        // Limita tamaño máximo en móvil
+        const size = isMobile && rawSize > MOBILE_MAX_SIZE ? MOBILE_MAX_SIZE : rawSize;
+
         tester.style.fontSize = `${size}px`;
         updateFill(sizeSlider);
       });
