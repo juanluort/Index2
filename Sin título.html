@@ -173,44 +173,6 @@
     .tester:focus {
       box-shadow: 0 0 0 3px #333;
     }
-
-    /* --- Responsive --- */
-    @media (max-width: 600px) {
-      body {
-        padding: 1rem;
-      }
-
-      .controls {
-        flex-direction: column;
-        gap: 1.5rem;
-      }
-
-      .control-group, .checkbox-group {
-        width: 100%;
-      }
-
-      input[type="range"] {
-        width: 100%;
-        max-width: 100%;
-      }
-
-      .tester {
-        font-size: 6vw; /* base responsive size */
-        min-height: auto;
-        white-space: normal;
-        overflow-x: auto;
-        word-break: break-word;
-      }
-
-      .slider-label {
-        font-size: 1rem;
-      }
-
-      .slider-size-left,
-      .slider-size-right {
-        font-size: 1rem !important;
-      }
-    }
   </style>
 </head>
 <body>
@@ -252,7 +214,7 @@
       const weightSlider = document.getElementById('weight-slider');
       const ligaBtn = document.getElementById('ligature-btn');
 
-      const MOBILE_MAX_SIZE = 67; // 50% of 134
+      const MOBILE_MAX_SIZE = 67; // 50% de 134
 
       function updateFill(slider) {
         const min = Number(slider.min);
@@ -265,19 +227,21 @@
       updateFill(sizeSlider);
       updateFill(weightSlider);
 
-      // Inicializa fontSize y peso con valores del slider
-      tester.style.fontSize = `${sizeSlider.value}px`;
+      const isMobile = window.matchMedia("(max-width: 600px)").matches;
+
+      // Al cargar, tamaño real del texto
+      const initialSize = isMobile ? MOBILE_MAX_SIZE : Number(sizeSlider.value);
+      tester.style.fontSize = `${initialSize}px`;
+
+      // El slider siempre inicia en 134 para mostrar 100% visualmente
+      sizeSlider.value = 134;
+      updateFill(sizeSlider);
+
       tester.style.fontVariationSettings = `"wght" ${weightSlider.value}`;
 
       sizeSlider.addEventListener('input', () => {
         const rawSize = Number(sizeSlider.value);
-
-        // Detecta si es móvil
-        const isMobile = window.matchMedia("(max-width: 600px)").matches;
-
-        // Limita tamaño máximo en móvil
         const size = isMobile && rawSize > MOBILE_MAX_SIZE ? MOBILE_MAX_SIZE : rawSize;
-
         tester.style.fontSize = `${size}px`;
         updateFill(sizeSlider);
       });
