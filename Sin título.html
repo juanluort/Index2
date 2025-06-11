@@ -169,7 +169,7 @@
       overflow: hidden;
       white-space: nowrap;
 
-      height: 183px; /* altura fija ajustada */
+      height: 183px; /* altura fija */
       box-sizing: border-box;
     }
 
@@ -257,7 +257,7 @@
       const weightSlider = document.getElementById('weight-slider');
       const ligaBtn = document.getElementById('ligature-btn');
 
-      const MOBILE_MAX_SIZE = 72; // actualizado a 72px
+      const MOBILE_MAX_SIZE = 75; // límite móvil actualizado a 75
 
       function updateFill(slider) {
         const min = Number(slider.min);
@@ -267,11 +267,11 @@
         slider.style.setProperty('--fill', `${percent}%`);
       }
 
-      sizeSlider.value = MOBILE_MAX_SIZE;
+      sizeSlider.value = 72; // tamaño inicial 72
       updateFill(sizeSlider);
       updateFill(weightSlider);
 
-      tester.style.fontSize = `${MOBILE_MAX_SIZE}px`;
+      tester.style.fontSize = `72px`;
       tester.style.fontVariationSettings = `"wght" ${weightSlider.value}`;
 
       sizeSlider.addEventListener('input', () => {
