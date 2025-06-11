@@ -195,7 +195,7 @@
       }
 
       .tester {
-        font-size: 6vw !important;
+        font-size: 6vw; /* Quité el !important para que el slider funcione */
         min-height: auto;
         white-space: normal;
         overflow-x: auto;
@@ -262,6 +262,10 @@
 
       updateFill(sizeSlider);
       updateFill(weightSlider);
+
+      // Inicializa fontSize para que coincida con slider al cargar
+      tester.style.fontSize = `${sizeSlider.value}px`;
+      tester.style.fontVariationSettings = `"wght" ${weightSlider.value}`;
 
       sizeSlider.addEventListener('input', () => {
         const size = sizeSlider.value;
